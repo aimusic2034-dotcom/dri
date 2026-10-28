@@ -165,7 +165,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (tripHistoryError) {
-      console.warn('[v0] Trip history error:', tripHistoryError);
+      console.warn('[v0] Trip history error:', tripHistoryError.code, tripHistoryError.message);
     }
   }, [tripHistoryError]);
 

@@ -30,7 +30,7 @@ function firstPositiveFiniteNumber(...values: any[]) {
 export function useDriverTripHistory(driverId: string | null, period: Period) {
   const [trips, setTrips] = useState<DriverTrip[]>([]);
   const [loading, setLoading] = useState(Boolean(driverId));
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ code?: string; message: string } | null>(null);
 
   useEffect(() => {
     if (!driverId) { setTrips([]); setLoading(false); return; }
@@ -57,7 +57,7 @@ export function useDriverTripHistory(driverId: string | null, period: Period) {
       }];
     });
     setTrips(next); setLoading(false);
-  }, (error) => { setError(`Unable to load trip history (${error.code}): ${error.message}`); setLoading(false); });
+  }, (error) => { setError({ code: error.code, message: error.message }); setLoading(false); });
   }, [driverId, period]);
 
   const filteredTrips = useMemo(() => {
